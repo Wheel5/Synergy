@@ -10,25 +10,25 @@ local defaults = {
 }
 
 local dpsSynergyBL = {
-	["Conduit"] = true,
-	["Harvest"] = true,
+	[GetString(SYNERGY_ABILITY_CONDUIT)] = true,
+	[GetString(SYNERGY_ABILITY_HARVEST)] = true,
 }
 
 local tankSynergyBL = {
-	["Charged Lightning"] = true,
-	["Impale"] = true,
-	["Gravity Crush"] = true,
+	[GetString(SYNERGY_ABILITY_CHARGED_LIGHTNING)] = true,
+	[GetString(SYNERGY_ABILITY_IMPALE)] = true,
+	[GetString(SYNERGY_ABILITY_GRAVITY_CRUSH)] = true,
 }
 
 local healSynergyBL = {
-	["Charged Lightning"] = true,
-	["Impale"] = true,
-	["Gravity Crush"] = true,
-	["Conduit"] = true,
+	[GetString(SYNERGY_ABILITY_CHARGED_LIGHTNING)] = true,
+	[GetString(SYNERGY_ABILITY_IMPALE)] = true,
+	[GetString(SYNERGY_ABILITY_GRAVITY_CRUSH)] = true,
+	[GetString(SYNERGY_ABILITY_CONDUIT)] = true,
 }
 
 local excludeBoss = {
-	["The Mage"] = true,
+	[GetString(SYNERGY_BOSS_THE_MAGE)] = true,
 }
 
 syn.CustomAbilityName = {
@@ -42,7 +42,7 @@ end
 
 syn.alkosh = true
 
-local function alkoshActive()
+function syn.alkoshActive()
 	if DoesUnitExist("boss1") and not DoesUnitExist("boss2") and not excludeBoss[GetUnitName("boss1")] then
 		local numBuffs = GetNumBuffs("boss1")
 		for i = 1, numBuffs do
@@ -80,7 +80,7 @@ end
 
 function syn.combat(e, inCombat)
 	if inCombat and syn.savedVariables.ExtremeBlocking then
-		EM:RegisterForUpdate(syn.name.."alkoshCheck", 50, alkoshActive)
+		EM:RegisterForUpdate(syn.name.."alkoshCheck", 50, syn.alkoshActive)
 	else
 		EM:UnregisterForUpdate(syn.name.."alkoshCheck")
 	end
