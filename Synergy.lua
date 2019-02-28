@@ -45,7 +45,7 @@ function syn.SynergyOverride()
 		local d, h, t = GetGroupMemberRoles('player')
 		if d then
 			if n and syn.dpsSynergyBL[n] then return end
-			if n and not syn.alkosh then return end
+			if n and not syn.alkosh and not syn.excludeSyn[n] then return end
 		elseif h then
 			if n and syn.healSynergyBL[n] then return end
 		elseif t then
@@ -91,6 +91,10 @@ function syn.init(event, addon)
 	
 	syn.excludeBoss = {
 		[GetString(SYNERGY_BOSS_THE_MAGE)] = true,
+	}
+
+	syn.excludeSyn = {
+		[GetString(SYNERGY_ABILITY_DROP_HOARFROST)] = true,
 	}
 
 	syn.buildMenu()
