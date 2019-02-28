@@ -21,7 +21,7 @@ end
 syn.alkosh = true
 
 function syn.alkoshActive()
-	if DoesUnitExist("boss1") and not DoesUnitExist("boss2") and not excludeBoss[GetUnitName("boss1")] then
+	if DoesUnitExist("boss1") and not DoesUnitExist("boss2") and not syn.excludeBoss[GetUnitName("boss1")] then
 		local numBuffs = GetNumBuffs("boss1")
 		for i = 1, numBuffs do
 			local buffName, timeStarted, timeEnding, buffSlot, stackCount, iconFilename, buffType, effectType, abilityType, statusEffectType, abilityId, canClickOff, castByPlayer = GetUnitBuffInfo("boss1", i)
