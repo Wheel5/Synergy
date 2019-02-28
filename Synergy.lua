@@ -3,7 +3,7 @@ local syn = synergy
 local EM = GetEventManager()
 
 syn.name = "Synergy"
-syn.version = "1.2"
+syn.version = "1.3"
 
 local defaults = {
 	["ExtremeBlocking"] = false,
@@ -64,41 +64,50 @@ function syn.combat(e, inCombat)
 	end
 end
 
+local function buildTables()
+	syn.dpsSynergyBL = {
+		[GetString(SI_SYNERGY_ABILITY_CONDUIT)] = true,
+		[GetString(SI_SYNERGY_ABILITY_HARVEST)] = true,
+	}
+	
+	syn.tankSynergyBL = {
+		[GetString(SI_SYNERGY_ABILITY_CHARGED_LIGHTNING)] = true,
+		[GetString(SI_SYNERGY_ABILITY_IMPALE)] = true,
+		[GetString(SI_SYNERGY_ABILITY_GRAVITY_CRUSH)] = true,
+	}
+	
+	syn.healSynergyBL = {
+		[GetString(SI_SYNERGY_ABILITY_CHARGED_LIGHTNING)] = true,
+		[GetString(SI_SYNERGY_ABILITY_IMPALE)] = true,
+		[GetString(SI_SYNERGY_ABILITY_GRAVITY_CRUSH)] = true,
+		[GetString(SI_SYNERGY_ABILITY_CONDUIT)] = true,
+	}
+	
+	syn.excludeBoss = {
+		[GetString(SI_SYNERGY_BOSS_THE_MAGE)] = true,
+	}
+
+	syn.excludeSyn = {
+		[GetString(SI_SYNERGY_ABILITY_DROP_HOARFROST)] = true,
+		[GetString(SI_SYNERGY_ABILITY_CELESTIAL_PURGE)] = true,
+		[GetString(SI_SYNERGY_ABILITY_POWER_SWITCH)] = true,
+		[GetString(SI_SYNERGY_ABILITY_GATEWAY)] = true,
+		[GetString(SI_SYNERGY_ABILITY_REMOVE_BOLT)] = true,
+		[GetString(SI_SYNERGY_ABILITY_DESTRUCTIVE_OUTBREAK)] = true, -- TEMPORARY
+		[GetString(SI_SYNERGY_ABILITY_MALEVOLENT_CORE)] = true,
+		[GetString(SI_SYNERGY_ABILITY_WELKYNARS_LIGHT)] = true,
+	}
+end
+
 function syn.init(event, addon)
 	if addon ~= syn.name then return end
 	EM:UnregisterForEvent(syn.name.."Load", EVENT_ADD_ON_LOADED)
 	syn.savedVariables = ZO_SavedVars:New("SynergySavedVars", 1, nil, defaults, GetWorldName())
-	EM:RegisterForEvent(syn.name.."Combat", EVENT_PLAYER_COMBAT_STATE, syn.combat)
 
-	-- TODO: move this declaration
-	syn.dpsSynergyBL = {
-		[GetString(SYNERGY_ABILITY_CONDUIT)] = true,
-		[GetString(SYNERGY_ABILITY_HARVEST)] = true,
-	}
-	
-	syn.tankSynergyBL = {
-		[GetString(SYNERGY_ABILITY_CHARGED_LIGHTNING)] = true,
-		[GetString(SYNERGY_ABILITY_IMPALE)] = true,
-		[GetString(SYNERGY_ABILITY_GRAVITY_CRUSH)] = true,
-	}
-	
-	syn.healSynergyBL = {
-		[GetString(SYNERGY_ABILITY_CHARGED_LIGHTNING)] = true,
-		[GetString(SYNERGY_ABILITY_IMPALE)] = true,
-		[GetString(SYNERGY_ABILITY_GRAVITY_CRUSH)] = true,
-		[GetString(SYNERGY_ABILITY_CONDUIT)] = true,
-	}
-	
-	syn.excludeBoss = {
-		[GetString(SYNERGY_BOSS_THE_MAGE)] = true,
-	}
-
-	syn.excludeSyn = {
-		[GetString(SYNERGY_ABILITY_DROP_HOARFROST)] = true,
-	}
-
+	buildTables()
 	syn.buildMenu()
 	syn.SynergyOverride()
+	EM:RegisterForEvent(syn.name.."Combat", EVENT_PLAYER_COMBAT_STATE, syn.combat)
 end
 
 EM:RegisterForEvent(syn.name.."Load", EVENT_ADD_ON_LOADED, syn.init)
