@@ -9,28 +9,6 @@ local defaults = {
 	["ExtremeBlocking"] = false,
 }
 
-local dpsSynergyBL = {
-	[GetString(SYNERGY_ABILITY_CONDUIT)] = true,
-	[GetString(SYNERGY_ABILITY_HARVEST)] = true,
-}
-
-local tankSynergyBL = {
-	[GetString(SYNERGY_ABILITY_CHARGED_LIGHTNING)] = true,
-	[GetString(SYNERGY_ABILITY_IMPALE)] = true,
-	[GetString(SYNERGY_ABILITY_GRAVITY_CRUSH)] = true,
-}
-
-local healSynergyBL = {
-	[GetString(SYNERGY_ABILITY_CHARGED_LIGHTNING)] = true,
-	[GetString(SYNERGY_ABILITY_IMPALE)] = true,
-	[GetString(SYNERGY_ABILITY_GRAVITY_CRUSH)] = true,
-	[GetString(SYNERGY_ABILITY_CONDUIT)] = true,
-}
-
-local excludeBoss = {
-	[GetString(SYNERGY_BOSS_THE_MAGE)] = true,
-}
-
 syn.CustomAbilityName = {
 	[75753] = GetAbilityName(75753),	-- Line-Breaker
 }
@@ -66,12 +44,12 @@ function syn.SynergyOverride()
 		local n, _ = GetSynergyInfo()
 		local d, h, t = GetGroupMemberRoles('player')
 		if d then
-			if n and dpsSynergyBL[n] then return end
+			if n and syn.dpsSynergyBL[n] then return end
 			if n and not syn.alkosh then return end
 		elseif h then
-			if n and healSynergyBL[n] then return end
+			if n and syn.healSynergyBL[n] then return end
 		elseif t then
-			if n and tankSynergyBL[n] then return end
+			if n and syn.tankSynergyBL[n] then return end
 		end
 		onSynAbChng(self)
 	end
@@ -92,6 +70,30 @@ function syn.init(event, addon)
 	syn.savedVariables = ZO_SavedVars:New("SynergySavedVars", 1, nil, defaults, GetWorldName())
 	EM:RegisterForEvent(syn.name.."Combat", EVENT_PLAYER_COMBAT_STATE, syn.combat)
 
+	-- TODO: move this declaration
+	syn.dpsSynergyBL = {
+		[GetString(SYNERGY_ABILITY_CONDUIT)] = true,
+		[GetString(SYNERGY_ABILITY_HARVEST)] = true,
+	}
+	
+	syn.tankSynergyBL = {
+		[GetString(SYNERGY_ABILITY_CHARGED_LIGHTNING)] = true,
+		[GetString(SYNERGY_ABILITY_IMPALE)] = true,
+		[GetString(SYNERGY_ABILITY_GRAVITY_CRUSH)] = true,
+	}
+	
+	syn.healSynergyBL = {
+		[GetString(SYNERGY_ABILITY_CHARGED_LIGHTNING)] = true,
+		[GetString(SYNERGY_ABILITY_IMPALE)] = true,
+		[GetString(SYNERGY_ABILITY_GRAVITY_CRUSH)] = true,
+		[GetString(SYNERGY_ABILITY_CONDUIT)] = true,
+	}
+	
+	syn.excludeBoss = {
+		[GetString(SYNERGY_BOSS_THE_MAGE)] = true,
+	}
+
+	syn.buildMenu()
 	syn.SynergyOverride()
 end
 
