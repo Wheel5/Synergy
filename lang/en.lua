@@ -15,6 +15,9 @@ ZO_CreateStringId("SI_SYNERGY_ABILITY_REMOVE_BOLT", "Remove Bolt") -- Ozara pin
 ZO_CreateStringId("SI_SYNERGY_ABILITY_DESTRUCTIVE_OUTBREAK", "Destructive Outbreak") -- Warrior break
 ZO_CreateStringId("SI_SYNERGY_ABILITY_MALEVOLENT_CORE", "Malevolent Core") -- CR downstairs cores
 ZO_CreateStringId("SI_SYNERGY_ABILITY_WELKYNARS_LIGHT", "Welkynar's Light") -- CR spears
+ZO_CreateStringId("SI_SYNERGY_ABILITY_LEVITATE", "Levitate") -- hof boss 2 pads
 
 ----------- BOSSES -----------
 ZO_CreateStringId("SI_SYNERGY_BOSS_THE_MAGE", "The Mage")
+ZO_CreateStringId("SI_SYNERGY_BOSS_YOKEDA_KAI", "Yokeda Kai")
+ZO_CreateStringId("SI_SYNERGY_BOSS_YOKEDA_ROKDUN", "Yokeda Rok'dun")

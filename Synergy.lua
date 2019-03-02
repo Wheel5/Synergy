@@ -19,6 +19,7 @@ local function GetFormattedAbilityName(id)
 end
 
 syn.alkosh = true
+syn.allowOutbreak = false
 
 function syn.alkoshActive()
 	if DoesUnitExist("boss1") and not DoesUnitExist("boss2") and not syn.excludeBoss[GetUnitName("boss1")] then
@@ -85,6 +86,8 @@ local function buildTables()
 	
 	syn.excludeBoss = {
 		[GetString(SI_SYNERGY_BOSS_THE_MAGE)] = true,
+		[GetString(SI_SYNERGY_BOSS_YOKEDA_KAI)] = true,
+		[GetString(SI_SYNERGY_BOSS_YOKEDA_ROKDUN)] = true,
 	}
 
 	syn.excludeSyn = {
@@ -96,6 +99,7 @@ local function buildTables()
 		[GetString(SI_SYNERGY_ABILITY_DESTRUCTIVE_OUTBREAK)] = true, -- TEMPORARY
 		[GetString(SI_SYNERGY_ABILITY_MALEVOLENT_CORE)] = true,
 		[GetString(SI_SYNERGY_ABILITY_WELKYNARS_LIGHT)] = true,
+		[GetString(SI_SYNERGY_ABILITY_LEVITATE)] = true,
 	}
 end
 
