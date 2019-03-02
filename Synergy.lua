@@ -3,7 +3,7 @@ local syn = synergy
 local EM = GetEventManager()
 
 syn.name = "Synergy"
-syn.version = "1.3"
+syn.version = "1.4"
 
 local defaults = {
 	["ExtremeBlocking"] = false,
