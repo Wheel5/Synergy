@@ -4,7 +4,7 @@ local EM = GetEventManager()
 local libDialog = LibStub('LibDialog')
 
 syn.name = "Synergy"
-syn.version = "1.5"
+syn.version = "1.6"
 
 local defaults = {
 	["ExtremeBlocking"] = false,
@@ -119,7 +119,7 @@ local function buildTables()
 	}
 
 	syn.excludeSyn = {
-		[GetString(SI_SYNERGY_ABILITY_DROP_HOARFROST)] = true,
+		[GetString(SI_SYNERGY_ABILITY_SHED_HOARFROST)] = true,
 		[GetString(SI_SYNERGY_ABILITY_CELESTIAL_PURGE)] = true,
 		[GetString(SI_SYNERGY_ABILITY_POWER_SWITCH)] = true,
 		[GetString(SI_SYNERGY_ABILITY_GATEWAY)] = true,

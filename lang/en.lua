@@ -7,7 +7,7 @@ ZO_CreateStringId("SI_SYNERGY_ABILITY_GRAVITY_CRUSH", "Gravity Crush")
 ZO_CreateStringId("SI_SYNERGY_ABILITY_IMPALE", "Impale")
 
 ----------- TRIAL SYNERGIES -----------
-ZO_CreateStringId("SI_SYNERGY_ABILITY_DROP_HOARFROST", "Drop Hoarfrost") -- CR Hoarfrost
+ZO_CreateStringId("SI_SYNERGY_ABILITY_SHED_HOARFROST", "Shed Hoarfrost") -- CR Hoarfrost
 ZO_CreateStringId("SI_SYNERGY_ABILITY_CELESTIAL_PURGE", "Celestial Purge") -- vmol something
 ZO_CreateStringId("SI_SYNERGY_ABILITY_POWER_SWITCH", "Power Switch") -- hof boss 2 switch
 ZO_CreateStringId("SI_SYNERGY_ABILITY_GATEWAY", "Gateway") -- CR portal
