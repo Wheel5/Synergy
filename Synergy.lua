@@ -4,7 +4,7 @@ local EM = GetEventManager()
 local libDialog = LibStub('LibDialog')
 
 syn.name = "Synergy"
-syn.version = "1.6"
+syn.version = "1.7"
 
 local defaults = {
 	["ExtremeBlocking"] = false,
