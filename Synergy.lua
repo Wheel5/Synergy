@@ -1,9 +1,10 @@
 synergy = synergy or {}
 local syn = synergy
 local EM = GetEventManager()
+local libDialog = LibStub('LibDialog')
 
 syn.name = "Synergy"
-syn.version = "1.4"
+syn.version = "1.5"
 
 local defaults = {
 	["ExtremeBlocking"] = false,
@@ -20,6 +21,24 @@ end
 
 syn.alkosh = true
 syn.allowOutbreak = false
+syn.displayAlert = true
+
+local function yesHandle()
+	syn.allowOutbreak = true
+end
+
+local function noHandle()
+	syn.displayAlert = true
+end
+
+local function buildDialog()
+	libDialog:RegisterDialog(syn.name.."OutbreakDialog", "OutbreakConfirmation", GetString(SI_SYNERGY_ABILITY_DESTRUCTIVE_OUTBREAK), "Press Confirm to enable the synergy", yesHandle, noHandle)
+end
+
+local function showDialog()
+	syn.displayAlert = false
+	libDialog:ShowDialog(syn.name.."OutbreakDialog", "OutbreakConfirmation")
+end
 
 function syn.alkoshActive()
 	if DoesUnitExist("boss1") and not DoesUnitExist("boss2") and not syn.excludeBoss[GetUnitName("boss1")] then
@@ -51,6 +70,15 @@ function syn.SynergyOverride()
 			if n and syn.healSynergyBL[n] then return end
 		elseif t then
 			if n and syn.tankSynergyBL[n] then return end
+		end
+
+		if n and syn.alertSyn[n] and syn.displayAlert and not syn.allowOutbreak then
+			showDialog()
+		end
+	
+		if not n or (n and not syn.alertSyn[n]) then
+			syn.allowOutbreak = false
+			syn.displayAlert = true
 		end
 		onSynAbChng(self)
 	end
@@ -96,10 +124,14 @@ local function buildTables()
 		[GetString(SI_SYNERGY_ABILITY_POWER_SWITCH)] = true,
 		[GetString(SI_SYNERGY_ABILITY_GATEWAY)] = true,
 		[GetString(SI_SYNERGY_ABILITY_REMOVE_BOLT)] = true,
-		[GetString(SI_SYNERGY_ABILITY_DESTRUCTIVE_OUTBREAK)] = true, -- TEMPORARY
+		[GetString(SI_SYNERGY_ABILITY_DESTRUCTIVE_OUTBREAK)] = true,
 		[GetString(SI_SYNERGY_ABILITY_MALEVOLENT_CORE)] = true,
 		[GetString(SI_SYNERGY_ABILITY_WELKYNARS_LIGHT)] = true,
 		[GetString(SI_SYNERGY_ABILITY_LEVITATE)] = true,
+	}
+
+	syn.alertSyn = {
+		[GetString(SI_SYNERGY_ABILITY_DESTRUCTIVE_OUTBREAK)] = true,
 	}
 end
 
@@ -110,6 +142,7 @@ function syn.init(event, addon)
 
 	buildTables()
 	syn.buildMenu()
+	buildDialog()
 	syn.SynergyOverride()
 	EM:RegisterForEvent(syn.name.."Combat", EVENT_PLAYER_COMBAT_STATE, syn.combat)
 end
