@@ -4,7 +4,7 @@ local EM = GetEventManager()
 local libDialog = LibStub('LibDialog')
 
 syn.name = "Synergy"
-syn.version = "1.7"
+syn.version = "1.8"
 
 local defaults = {
 	["ExtremeBlocking"] = false,
@@ -116,6 +116,7 @@ local function buildTables()
 		[GetString(SI_SYNERGY_BOSS_THE_MAGE)] = true,
 		[GetString(SI_SYNERGY_BOSS_YOKEDA_KAI)] = true,
 		[GetString(SI_SYNERGY_BOSS_YOKEDA_ROKDUN)] = true,
+		[GetString(SI_SYNERGY_BOSS_ASSEMBLY_GENERAL)] = true,
 	}
 
 	syn.excludeSyn = {

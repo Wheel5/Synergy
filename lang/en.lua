@@ -21,3 +21,4 @@ ZO_CreateStringId("SI_SYNERGY_ABILITY_LEVITATE", "Levitate") -- hof boss 2 pads
 ZO_CreateStringId("SI_SYNERGY_BOSS_THE_MAGE", "The Mage")
 ZO_CreateStringId("SI_SYNERGY_BOSS_YOKEDA_KAI", "Yokeda Kai")
 ZO_CreateStringId("SI_SYNERGY_BOSS_YOKEDA_ROKDUN", "Yokeda Rok'dun")
+ZO_CreateStringId("SI_SYNERGY_BOSS_ASSEMBLY_GENERAL", "Assembly General")
