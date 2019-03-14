@@ -4,7 +4,7 @@ local EM = GetEventManager()
 local libDialog = LibStub('LibDialog')
 
 syn.name = "Synergy"
-syn.version = "1.8"
+syn.version = "1.9"
 
 local defaults = {
 	["ExtremeBlocking"] = false,
@@ -127,6 +127,7 @@ local function buildTables()
 		[GetString(SI_SYNERGY_ABILITY_REMOVE_BOLT)] = true,
 		[GetString(SI_SYNERGY_ABILITY_DESTRUCTIVE_OUTBREAK)] = true,
 		[GetString(SI_SYNERGY_ABILITY_MALEVOLENT_CORE)] = true,
+		[GetString(SI_SYNERGY_ABILITY_WIND_OF_THE_WELKYNAR)] = true,
 		[GetString(SI_SYNERGY_ABILITY_WELKYNARS_LIGHT)] = true,
 		[GetString(SI_SYNERGY_ABILITY_LEVITATE)] = true,
 	}

@@ -14,6 +14,7 @@ ZO_CreateStringId("SI_SYNERGY_ABILITY_GATEWAY", "Gateway") -- CR portal
 ZO_CreateStringId("SI_SYNERGY_ABILITY_REMOVE_BOLT", "Remove Bolt") -- Ozara pin
 ZO_CreateStringId("SI_SYNERGY_ABILITY_DESTRUCTIVE_OUTBREAK", "Destructive Outbreak") -- Warrior break
 ZO_CreateStringId("SI_SYNERGY_ABILITY_MALEVOLENT_CORE", "Malevolent Core") -- CR downstairs cores
+ZO_CreateStringId("SI_SYNERGY_ABILITY_WIND_OF_THE_WELKYNAR", "Wind of the Welkynar") -- CR downstairs jump pads
 ZO_CreateStringId("SI_SYNERGY_ABILITY_WELKYNARS_LIGHT", "Welkynar's Light") -- CR spears
 ZO_CreateStringId("SI_SYNERGY_ABILITY_LEVITATE", "Levitate") -- hof boss 2 pads
 

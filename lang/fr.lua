@@ -14,7 +14,7 @@ ZO_CreateStringId("SI_SYNERGY_ABILITY_GATEWAY", "Portail") -- CR portal
 ZO_CreateStringId("SI_SYNERGY_ABILITY_REMOVE_BOLT", "Dissipation éclair") -- Ozara pin
 ZO_CreateStringId("SI_SYNERGY_ABILITY_DESTRUCTIVE_OUTBREAK", "Accès destructeur") -- Warrior break
 ZO_CreateStringId("SI_SYNERGY_ABILITY_MALEVOLENT_CORE", "Noyau malveillant") -- CR downstairs cores
-ZO_CreateStringId("SI_SYNERGY_ABILITY_WELKYNARS_LIGHT", "TODO") -- CR spears --maybe "Lumière de welkynar" but not sure
+ZO_CreateStringId("SI_SYNERGY_ABILITY_WELKYNARS_LIGHT", "Lumière des welkynars") -- CR spears 
 ZO_CreateStringId("SI_SYNERGY_ABILITY_LEVITATE", "Lévitation") -- hof boss 2 pads
 
 ----------- BOSSES -----------
