@@ -30,6 +30,14 @@ function syn.buildMenu()
 			getFunc = function() return syn.savedVariables.ExtremeBlocking end,
 			setFunc = function(value) syn.savedVariables.ExtremeBlocking = value end,
 		},
+		{
+			type = "checkbox",
+			name = "Disable Cloudrest Portal",
+			tooltip = "Disables the use of the portal synergy in Cloudrest when enabled",
+			default = false,
+			getFunc = function() return syn.savedVariables.portalDisable end,
+			setFunc = function(value) syn.savedVariables.portalDisable = value end,
+		},
 	}
 	
 	LAM:RegisterAddonPanel(syn.name.."Options", panelData)

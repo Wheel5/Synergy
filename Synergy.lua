@@ -4,10 +4,15 @@ local EM = GetEventManager()
 local libDialog = LibStub('LibDialog')
 
 syn.name = "Synergy"
-syn.version = "1.9"
+syn.version = "1.10"
+
+local isMagDD
 
 local defaults = {
 	["ExtremeBlocking"] = false,
+	["portalDisable"] = false,
+	["maSynDisable"] = false,
+	["brpSynDisable"] = false,
 }
 
 syn.CustomAbilityName = {
@@ -63,7 +68,9 @@ function syn.SynergyOverride()
 	function SYNERGY:OnSynergyAbilityChanged()
 		local n, _ = GetSynergyInfo()
 		local d, h, t = GetGroupMemberRoles('player')
+		if n and syn.savedVariables.portalDisable and n == GetString(SI_SYNERGY_ABILITY_GATEWAY) then return end
 		if d then
+			if n and isMagDD and syn.magDpsSynergyBL[n] then return end
 			if n and syn.dpsSynergyBL[n] then return end
 			if n and not syn.alkosh and not syn.excludeSyn[n] then return end
 		elseif h then
@@ -94,24 +101,35 @@ function syn.combat(e, inCombat)
 end
 
 local function buildTables()
+	-- Synergy blacklist for all DDs
 	syn.dpsSynergyBL = {
 		[GetString(SI_SYNERGY_ABILITY_CONDUIT)] = true,
 		[GetString(SI_SYNERGY_ABILITY_HARVEST)] = true,
 	}
+
+	-- Synergy blacklist for mag DDs
+	syn.magDpsSynergyBL = {
+		[GetString(SI_SYNERGY_ABILITY_BLACK_WIDOWS)] = true,
+	}
 	
+	-- Synergy blacklist for tanks
 	syn.tankSynergyBL = {
 		[GetString(SI_SYNERGY_ABILITY_CHARGED_LIGHTNING)] = true,
 		[GetString(SI_SYNERGY_ABILITY_IMPALE)] = true,
 		[GetString(SI_SYNERGY_ABILITY_GRAVITY_CRUSH)] = true,
+		[GetString(SI_SYNERGY_ABILITY_BLACK_WIDOWS)] = true,
 	}
 	
+	-- Synergy blacklist for healers
 	syn.healSynergyBL = {
 		[GetString(SI_SYNERGY_ABILITY_CHARGED_LIGHTNING)] = true,
 		[GetString(SI_SYNERGY_ABILITY_IMPALE)] = true,
 		[GetString(SI_SYNERGY_ABILITY_GRAVITY_CRUSH)] = true,
 		[GetString(SI_SYNERGY_ABILITY_CONDUIT)] = true,
+		[GetString(SI_SYNERGY_ABILITY_BLACK_WIDOWS)] = true,
 	}
 	
+	-- Don't care about alkosh
 	syn.excludeBoss = {
 		[GetString(SI_SYNERGY_BOSS_THE_MAGE)] = true,
 		[GetString(SI_SYNERGY_BOSS_YOKEDA_KAI)] = true,
@@ -119,6 +137,7 @@ local function buildTables()
 		[GetString(SI_SYNERGY_BOSS_ASSEMBLY_GENERAL)] = true,
 	}
 
+	-- Can use regardless of alkosh
 	syn.excludeSyn = {
 		[GetString(SI_SYNERGY_ABILITY_SHED_HOARFROST)] = true,
 		[GetString(SI_SYNERGY_ABILITY_CELESTIAL_PURGE)] = true,
@@ -130,8 +149,10 @@ local function buildTables()
 		[GetString(SI_SYNERGY_ABILITY_WIND_OF_THE_WELKYNAR)] = true,
 		[GetString(SI_SYNERGY_ABILITY_WELKYNARS_LIGHT)] = true,
 		[GetString(SI_SYNERGY_ABILITY_LEVITATE)] = true,
+		[GetString(SI_SYNERGY_ABILITY_BLACK_WIDOWS)] = true,
 	}
 
+	-- Synergies to create alerts for
 	syn.alertSyn = {
 		[GetString(SI_SYNERGY_ABILITY_DESTRUCTIVE_OUTBREAK)] = true,
 	}
@@ -141,7 +162,9 @@ function syn.init(event, addon)
 	if addon ~= syn.name then return end
 	EM:UnregisterForEvent(syn.name.."Load", EVENT_ADD_ON_LOADED)
 	syn.savedVariables = ZO_SavedVars:New("SynergySavedVars", 1, nil, defaults, GetWorldName())
-
+	local _, mag, _ = GetUnitPower('player', POWERTYPE_MAGICKA)
+	local _, stam, _ = GetUnitPower('player', POWERTYPE_STAMINA)
+	isMagDD = mag > stam
 	buildTables()
 	syn.buildMenu()
 	buildDialog()
