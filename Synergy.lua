@@ -4,7 +4,7 @@ local EM = GetEventManager()
 local libDialog = LibStub('LibDialog')
 
 syn.name = "Synergy"
-syn.version = "1.10"
+syn.version = "1.11"
 
 local isMagDD
 
@@ -13,10 +13,23 @@ local defaults = {
 	["portalDisable"] = false,
 	["maSynDisable"] = false,
 	["brpSynDisable"] = false,
+	["trialsOnly"] = true,
 }
 
 syn.CustomAbilityName = {
 	[75753] = GetAbilityName(75753),	-- Line-Breaker
+}
+
+local trialZones = {
+	[635] = true, -- DSA
+	[636] = true, -- HRC
+	[638] = true, -- AA
+	[639] = true, -- SO
+	[975] = true, -- HOF
+	[1000] = true, -- AS
+	[1051] = true, -- CR
+	[677] = true, -- MA
+	[1082] = true, -- BRP
 }
 
 local function GetFormattedAbilityName(id)
@@ -68,6 +81,8 @@ function syn.SynergyOverride()
 	function SYNERGY:OnSynergyAbilityChanged()
 		local n, _ = GetSynergyInfo()
 		local d, h, t = GetGroupMemberRoles('player')
+		if n and syn.savedVariables.brpSynDisable and syn.blackrose[n] then return end
+		if n and syn.savedVariables.maSynDisable and syn.maelstrom[n] then return end
 		if n and syn.savedVariables.portalDisable and n == GetString(SI_SYNERGY_ABILITY_GATEWAY) then return end
 		if d then
 			if n and isMagDD and syn.magDpsSynergyBL[n] then return end
@@ -94,6 +109,7 @@ end
 
 function syn.combat(e, inCombat)
 	if inCombat and syn.savedVariables.ExtremeBlocking then
+		if syn.savedVariables.trialsOnly and not trialZones[GetZoneId(GetUnitZoneIndex("player"))] then return end
 		EM:RegisterForUpdate(syn.name.."alkoshCheck", 50, syn.alkoshActive)
 	else
 		EM:UnregisterForUpdate(syn.name.."alkoshCheck")
@@ -127,6 +143,22 @@ local function buildTables()
 		[GetString(SI_SYNERGY_ABILITY_GRAVITY_CRUSH)] = true,
 		[GetString(SI_SYNERGY_ABILITY_CONDUIT)] = true,
 		[GetString(SI_SYNERGY_ABILITY_BLACK_WIDOWS)] = true,
+	}
+
+	-- Blackrose sigils
+	syn.blackrose = {
+		[GetString(SI_SYNERGY_SIGIL_RESURRECTION)] = true,
+		[GetString(SI_SYNERGY_SIGIL_DEFENSE)] = true,
+		[GetString(SI_SYNERGY_SIGIL_HEALING)] = true,
+		[GetString(SI_SYNERGY_SIGIL_SUSTAIN)] = true,
+	}
+
+	-- Maelstrom sigils
+	syn.maelstrom = {
+		[GetString(SI_SYNERGY_SIGIL_POWER)] = true,
+		[GetString(SI_SYNERGY_SIGIL_DEFENSE)] = true,
+		[GetString(SI_SYNERGY_SIGIL_HEALING)] = true,
+		[GetString(SI_SYNERGY_SIGIL_HASTE)] = true,
 	}
 	
 	-- Don't care about alkosh

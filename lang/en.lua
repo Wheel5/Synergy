@@ -19,6 +19,17 @@ ZO_CreateStringId("SI_SYNERGY_ABILITY_WIND_OF_THE_WELKYNAR", "Wind of the Welkyn
 ZO_CreateStringId("SI_SYNERGY_ABILITY_WELKYNARS_LIGHT", "Welkynar's Light") -- CR spears
 ZO_CreateStringId("SI_SYNERGY_ABILITY_LEVITATE", "Levitate") -- hof boss 2 pads
 
+----------- BLACKROSE SIGILS -----------
+ZO_CreateStringId("SI_SYNERGY_SIGIL_RESURRECTION", "Sigil of Resurrection") -- res sigil
+ZO_CreateStringId("SI_SYNERGY_SIGIL_DEFENSE", "Sigil of Defense") -- defense sigil
+ZO_CreateStringId("SI_SYNERGY_SIGIL_HEALING", "Sigil of Healing") -- healing sigil
+ZO_CreateStringId("SI_SYNERGY_SIGIL_SUSTAIN", "Sigil of Sustain") -- sustain sigil
+
+----------- MAELSTROM SIGILS -----------
+ZO_CreateStringId("SI_SYNERGY_SIGIL_POWER", "Sigil of Power") -- damage sigil
+ZO_CreateStringId("SI_SYNERGY_SIGIL_HASTE", "Sigil of Haste") -- speed sigil
+-- also has same defense and healing sigil as BRP
+
 ----------- BOSSES -----------
 ZO_CreateStringId("SI_SYNERGY_BOSS_THE_MAGE", "The Mage")
 ZO_CreateStringId("SI_SYNERGY_BOSS_YOKEDA_KAI", "Yokeda Kai")
