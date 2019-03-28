@@ -4,7 +4,7 @@ local EM = GetEventManager()
 local libDialog = LibStub('LibDialog')
 
 syn.name = "Synergy"
-syn.version = "1.11"
+syn.version = "1.12"
 
 local isMagDD
 
@@ -81,6 +81,7 @@ function syn.SynergyOverride()
 	function SYNERGY:OnSynergyAbilityChanged()
 		local n, _ = GetSynergyInfo()
 		local d, h, t = GetGroupMemberRoles('player')
+		n = zo_strformat("<<1>>", n) 
 		if n and syn.savedVariables.brpSynDisable and syn.blackrose[n] then return end
 		if n and syn.savedVariables.maSynDisable and syn.maelstrom[n] then return end
 		if n and syn.savedVariables.portalDisable and n == GetString(SI_SYNERGY_ABILITY_GATEWAY) then return end
