@@ -1,5 +1,5 @@
 local MY_MODULE_NAME = "Wheels"
-local MY_MODULE_VERSION = 6
+local MY_MODULE_VERSION = 7
 
 local LCC = LibStub('LibCustomTitlesRN')
 if not LCC then return end
@@ -16,8 +16,8 @@ MY_MODULE:RegisterTitle("@Wheel5", nil, 2079, {en = "Immortal Memer"}, {color={"
 MY_MODULE:RegisterTitle("@Wheel5", nil, 2136, {en = "Bringer of Light"}, {color={"#5625F7","#B825F7"}})
 MY_MODULE:RegisterTitle("@Wheel5", nil, 1838, {en = "Tic-Tac Tormentor"}, {color={"#E58D40","#FFE60C"}})
 MY_MODULE:RegisterTitle("@Wheel5", nil, 2368, {en = "The Unchained"}, {color={"#db3e0f","#f28a1a"}})
-MY_MODULE:RegisterTitle("@Mapurr", nil, 92, {en = "Cartographer"}, {color={"#AD99F7", "#9DDCE8"}})
-MY_MODULE:RegisterTitle("@Mapurr", nil, 2075, {en = "Cartographer"}, {color={"#AD99F7", "#9DDCE8"}})
+MY_MODULE:RegisterTitle("@Mapurr", nil, 1728, {en = "Master Cartographer"}, {color={"#AD99F7", "#9DDCE8"}})
+MY_MODULE:RegisterTitle("@Mapurr", nil, 2075, {en = "Master Cartographer"}, {color={"#AD99F7", "#9DDCE8"}})
 MY_MODULE:RegisterTitle("@RTG1", nil, 1330, {en = "Poggers"}, {color="#3D992D"})
 MY_MODULE:RegisterTitle("@LikoXie", nil, 2139, {en = "Ice Poseidon"}, {color="#00FFFF"})
 
