@@ -18,6 +18,7 @@ ZO_CreateStringId("SI_SYNERGY_ABILITY_MALEVOLENT_CORE", "Malevolent Core") -- CR
 ZO_CreateStringId("SI_SYNERGY_ABILITY_WIND_OF_THE_WELKYNAR", "Wind of the Welkynar") -- CR downstairs jump pads
 ZO_CreateStringId("SI_SYNERGY_ABILITY_WELKYNARS_LIGHT", "Welkynar's Light") -- CR spears
 ZO_CreateStringId("SI_SYNERGY_ABILITY_LEVITATE", "Levitate") -- hof boss 2 pads
+ZO_CreateStringId("SI_SYNERGY_ABILITY_TIME_BREACH", "Time Breach") -- ss last boss portal
 
 ----------- BLACKROSE SIGILS -----------
 ZO_CreateStringId("SI_SYNERGY_SIGIL_RESURRECTION", "Sigil of Resurrection") -- res sigil

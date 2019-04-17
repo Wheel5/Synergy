@@ -4,7 +4,7 @@ local EM = GetEventManager()
 local libDialog = LibStub('LibDialog')
 
 syn.name = "Synergy"
-syn.version = "1.13"
+syn.version = "1.14"
 
 local isMagDD
 
@@ -183,6 +183,7 @@ local function buildTables()
 		[GetString(SI_SYNERGY_ABILITY_WELKYNARS_LIGHT)] = true,
 		[GetString(SI_SYNERGY_ABILITY_LEVITATE)] = true,
 		[GetString(SI_SYNERGY_ABILITY_BLACK_WIDOWS)] = true,
+		[GetString(SI_SYNERGY_ABILITY_TIME_BREACH)] = true,
 	}
 
 	-- Synergies to create alerts for
