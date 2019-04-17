@@ -4,7 +4,7 @@ local EM = GetEventManager()
 local libDialog = LibStub('LibDialog')
 
 syn.name = "Synergy"
-syn.version = "1.14"
+syn.version = "1.14.1"
 
 local isMagDD
 
@@ -30,6 +30,7 @@ local trialZones = {
 	[1051] = true, -- CR
 	[677] = true, -- MA
 	[1082] = true, -- BRP
+	[1121] = true, -- SS
 }
 
 local function GetFormattedAbilityName(id)
