@@ -169,6 +169,9 @@ local function buildTables()
 		[GetString(SI_SYNERGY_BOSS_YOKEDA_KAI)] = true,
 		[GetString(SI_SYNERGY_BOSS_YOKEDA_ROKDUN)] = true,
 		[GetString(SI_SYNERGY_BOSS_ASSEMBLY_GENERAL)] = true,
+		[GetString(SI_SYNERGY_BOSS_YOLNAHKRIIN)] = true,
+		[GetString(SI_SYNERGY_BOSS_LOKKESTIIZ)] = true,
+		[GetString(SI_SYNERGY_BOSS_NAHVIINTAAS)] = true,
 	}
 
 	-- Can use regardless of alkosh
