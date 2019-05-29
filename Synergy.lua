@@ -14,6 +14,7 @@ local defaults = {
 	["maSynDisable"] = false,
 	["brpSynDisable"] = false,
 	["trialsOnly"] = true,
+	["frontBarOnly"] = false,
 }
 
 syn.CustomAbilityName = {
@@ -75,14 +76,20 @@ function syn.alkoshActive()
 	end
 end
 
+local function forceRefresh(e, didChange, shouldUpdate, category)
+	if didChange then SYNERGY:OnSynergyAbilityChanged() end
+end
+
 function syn.SynergyOverride()
 
 	local onSynAbChng = SYNERGY.OnSynergyAbilityChanged
 	
 	function SYNERGY:OnSynergyAbilityChanged()
 		local n, _ = GetSynergyInfo()
+		local bar = GetActiveHotbarCategory()
 		local dd, h, t = GetGroupMemberRoles('player')
 		if n then n = zo_strformat("<<1>>", n) end
+		if n and syn.savedVariables.frontBarOnly and not syn.excludeSyn[n] and bar ~= HOTBAR_CATEGORY_PRIMARY then SHARED_INFORMATION_AREA:SetHidden(self, true) return end
 		if n and syn.savedVariables.brpSynDisable and syn.blackrose[n] then return end
 		if n and syn.savedVariables.maSynDisable and syn.maelstrom[n] then return end
 		if n and syn.savedVariables.portalDisable and n == GetString(SI_SYNERGY_ABILITY_GATEWAY) then return end
@@ -208,6 +215,7 @@ function syn.init(event, addon)
 	buildDialog()
 	syn.SynergyOverride()
 	EM:RegisterForEvent(syn.name.."Combat", EVENT_PLAYER_COMBAT_STATE, syn.combat)
+	EM:RegisterForEvent(syn.name.."SwapRefresh", EVENT_ACTION_SLOTS_ACTIVE_HOTBAR_UPDATED, forceRefresh)
 end
 
 EM:RegisterForEvent(syn.name.."Load", EVENT_ADD_ON_LOADED, syn.init)

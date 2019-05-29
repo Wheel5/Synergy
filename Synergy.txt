@@ -2,7 +2,7 @@
 ## Description: Prevents the use of certain synergies
 ## Author: Wheels
 ## Version: 1.15
-## APIVersion: 100026 100027
+## APIVersion: 100027
 ## SavedVariables: SynergySavedVars
 ## DependsOn: LibAddonMenu-2.0 LibStub LibDialog
 

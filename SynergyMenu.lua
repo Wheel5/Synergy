@@ -28,7 +28,7 @@ function syn.buildMenu()
 		},
 		{
 			type = "description",
-			text = "Extreme syngery blocking will disable the use of ALL SYNERGIES for dps when there is no Alkosh applied to the boss. If you are in a raid setting where alkosh is not likely to be consistent, it is not recommended to enable this setting.",
+			text = "Extreme syngery blocking will disable the use of ALL SYNERGIES for dps when there is no Alkosh applied to the boss. If you are in a raid setting where alkosh is not likely to be consistent, it is not recommended to enable this setting.\n\nAdditionally, there are a number of bosses where this setting will be ignored and it will be treated as if it were off, namely in fights were there are long periods of time where you cannot attack the boss, meaning  you will still be able to take orbs and such even if the boss does not have Alkosh applied.",
 		},
 		{
 			type = "checkbox",
@@ -47,8 +47,16 @@ function syn.buildMenu()
 			setFunc = function(value) syn.savedVariables.portalDisable = value end,
 		},
 		{
+			type = "checkbox",
+			name = "Only Synergize on Front Bar",
+			tooltip = "Disables the use of synergies when not on the front bar, to aid in the use of Lokkestiiz frontbar.",
+			default = false,
+			getFunc = function() return syn.savedVariables.frontBarOnly end,
+			setFunc = function(value) syn.savedVariables.frontBarOnly = value end,
+		},
+		{
 			type = "description",
-			text = "Maelstrom Arena and Blackrose Prison share the same Defense and Healing sigil name, so if you have one of the following settings enabled the sigil will be disabled in BOTH trials.",
+			text = "Maelstrom Arena and Blackrose Prison share the same Defense and Healing sigil name, so if you have one of the following settings enabled the sigil will be disabled in BOTH arenas.",
 		},
 		{
 			type = "checkbox",
