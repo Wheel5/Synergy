@@ -15,6 +15,7 @@ local defaults = {
 	["brpSynDisable"] = false,
 	["trialsOnly"] = true,
 	["frontBarOnly"] = false,
+	["lokkeMode"] = false,
 }
 
 syn.CustomAbilityName = {
@@ -32,6 +33,11 @@ local trialZones = {
 	[677] = true, -- MA
 	[1082] = true, -- BRP
 	[1121] = true, -- SS
+}
+
+local LOKKE = {
+	[1] = "|H1:item:151137:363:50:0:0:0:0:0:0:0:0:0:0:0:1:86:0:1:0:10000:0|h|h",
+	[2] = "|H1:item:149934:363:50:0:0:0:0:0:0:0:0:0:0:0:1:86:0:1:0:10000:0|h|h",
 }
 
 local function GetFormattedAbilityName(id)
@@ -58,6 +64,15 @@ end
 local function showDialog()
 	syn.displayAlert = false
 	libDialog:ShowDialog(syn.name.."OutbreakDialog", "OutbreakConfirmation")
+end
+
+local function lokkeCheck()
+	local np, p = 0
+	_,_,_,p = GetItemLinkSetInfo(LOKKE[1], true)
+	_,_,_,np = GetItemLinkSetInfo(LOKKE[2], true)
+	if (np >= 3) or (p >= 3) then return true end
+	if not syn.savedVariables.lokkeMode then return true end
+	return false
 end
 
 function syn.alkoshActive()
@@ -89,7 +104,7 @@ function syn.SynergyOverride()
 		local bar = GetActiveHotbarCategory()
 		local dd, h, t = GetGroupMemberRoles('player')
 		if n then n = zo_strformat("<<1>>", n) end
-		if n and syn.savedVariables.frontBarOnly and not syn.excludeSyn[n] and bar ~= HOTBAR_CATEGORY_PRIMARY then SHARED_INFORMATION_AREA:SetHidden(self, true) return end
+		if n and syn.savedVariables.frontBarOnly and lokkeCheck() and not syn.excludeSyn[n] and bar ~= HOTBAR_CATEGORY_PRIMARY then SHARED_INFORMATION_AREA:SetHidden(self, true) return end
 		if n and syn.savedVariables.brpSynDisable and syn.blackrose[n] then return end
 		if n and syn.savedVariables.maSynDisable and syn.maelstrom[n] then return end
 		if n and syn.savedVariables.portalDisable and n == GetString(SI_SYNERGY_ABILITY_GATEWAY) then return end

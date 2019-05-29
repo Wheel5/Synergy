@@ -49,10 +49,18 @@ function syn.buildMenu()
 		{
 			type = "checkbox",
 			name = "Only Synergize on Front Bar",
-			tooltip = "Disables the use of synergies when not on the front bar, to aid in the use of Lokkestiiz frontbar.",
+			tooltip = "Disables the use of synergies when not on the front bar.",
 			default = false,
 			getFunc = function() return syn.savedVariables.frontBarOnly end,
 			setFunc = function(value) syn.savedVariables.frontBarOnly = value end,
+		},
+		{
+			type = "checkbox",
+			name = "Lokkestiiz Mode",
+			tooltip = "When the above setting (Only Synergize on Front Bar) is enabled, if you are wearing the Lokkestiiz set, you will only be able to take synergies on your front bar, and if you are not wearing Lokkestiiz, you can take synergies on both bars.",
+			default = false,
+			getFunc = function() return syn.savedVariables.lokkeMode end,
+			setFunc = function(value) syn.savedVariables.lokkeMode = value end,
 		},
 		{
 			type = "description",
