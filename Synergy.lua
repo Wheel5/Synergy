@@ -4,7 +4,7 @@ local EM = GetEventManager()
 local libDialog = LibStub('LibDialog')
 
 syn.name = "Synergy"
-syn.version = "1.15"
+syn.version = "1.16"
 
 local isMagDD
 
@@ -130,6 +130,7 @@ local function buildTables()
 	syn.dpsSynergyBL = {
 		[GetString(SI_SYNERGY_ABILITY_CONDUIT)] = true,
 		[GetString(SI_SYNERGY_ABILITY_HARVEST)] = true,
+		[GetString(SI_SYNERGY_ABILITY_BONEYARD)] = true,
 	}
 
 	-- Synergy blacklist for mag DDs
@@ -152,6 +153,7 @@ local function buildTables()
 		[GetString(SI_SYNERGY_ABILITY_GRAVITY_CRUSH)] = true,
 		[GetString(SI_SYNERGY_ABILITY_CONDUIT)] = true,
 		[GetString(SI_SYNERGY_ABILITY_BLACK_WIDOWS)] = true,
+		[GetString(SI_SYNERGY_ABILITY_BONEYARD)] = true,
 	}
 
 	-- Blackrose sigils

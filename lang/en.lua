@@ -4,8 +4,8 @@ ZO_CreateStringId("SI_SYNERGY_ABILITY_HARVEST", "Harvest")
 ZO_CreateStringId("SI_SYNERGY_ABILITY_CHARGED_LIGHTNING", "Charged Lightning")
 ZO_CreateStringId("SI_SYNERGY_ABILITY_IMPALE", "Impale")
 ZO_CreateStringId("SI_SYNERGY_ABILITY_GRAVITY_CRUSH", "Gravity Crush")
-ZO_CreateStringId("SI_SYNERGY_ABILITY_IMPALE", "Impale")
 ZO_CreateStringId("SI_SYNERGY_ABILITY_BLACK_WIDOWS", "Black Widows")
+ZO_CreateStringId("SI_SYNERGY_ABILITY_BONEYARD", "Grave Robber")
 
 ----------- TRIAL SYNERGIES -----------
 ZO_CreateStringId("SI_SYNERGY_ABILITY_SHED_HOARFROST", "Shed Hoarfrost") -- CR Hoarfrost
