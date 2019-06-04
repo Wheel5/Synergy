@@ -4,7 +4,7 @@ local EM = GetEventManager()
 local libDialog = LibStub('LibDialog')
 
 syn.name = "Synergy"
-syn.version = "1.16"
+syn.version = "1.17"
 
 local isMagDD
 
@@ -16,6 +16,7 @@ local defaults = {
 	["trialsOnly"] = true,
 	["frontBarOnly"] = false,
 	["lokkeMode"] = false,
+	["disableGraveRobber"] = false,
 }
 
 syn.CustomAbilityName = {
@@ -98,6 +99,8 @@ end
 function syn.SynergyOverride()
 
 	local onSynAbChng = SYNERGY.OnSynergyAbilityChanged
+	local gRobber = GetString(SI_SYNERGY_ABILITY_BONEYARD)
+	local gate = GetString(SI_SYNERGY_ABILITY_GATEWAY)
 	
 	function SYNERGY:OnSynergyAbilityChanged()
 		local n, _ = GetSynergyInfo()
@@ -105,9 +108,10 @@ function syn.SynergyOverride()
 		local dd, h, t = GetGroupMemberRoles('player')
 		if n then n = zo_strformat("<<1>>", n) end
 		if n and syn.savedVariables.frontBarOnly and lokkeCheck() and not syn.excludeSyn[n] and bar ~= HOTBAR_CATEGORY_PRIMARY then SHARED_INFORMATION_AREA:SetHidden(self, true) return end
+		if n and syn.savedVariables.disableGraveRobber and n == gRobber then return end
 		if n and syn.savedVariables.brpSynDisable and syn.blackrose[n] then return end
 		if n and syn.savedVariables.maSynDisable and syn.maelstrom[n] then return end
-		if n and syn.savedVariables.portalDisable and n == GetString(SI_SYNERGY_ABILITY_GATEWAY) then return end
+		if n and syn.savedVariables.portalDisable and n == gate then return end
 		if dd then
 			if n and isMagDD and syn.magDpsSynergyBL[n] then return end
 			if n and syn.dpsSynergyBL[n] then return end
@@ -145,7 +149,6 @@ local function buildTables()
 	syn.dpsSynergyBL = {
 		[GetString(SI_SYNERGY_ABILITY_CONDUIT)] = true,
 		[GetString(SI_SYNERGY_ABILITY_HARVEST)] = true,
-		[GetString(SI_SYNERGY_ABILITY_BONEYARD)] = true,
 	}
 
 	-- Synergy blacklist for mag DDs

@@ -63,6 +63,14 @@ function syn.buildMenu()
 			setFunc = function(value) syn.savedVariables.lokkeMode = value end,
 		},
 		{
+			type = "checkbox",
+			name = "Disable Grave Robber",
+			tooltip = "Enabling this will prevent you from being able to take the Grave Robber synergy from the Boneyard necro skill.",
+			default = false,
+			getFunc = function() return syn.savedVariables.disableGraveRobber end,
+			setFunc = function(value) syn.savedVariables.disableGraveRobber = value end,
+		},
+		{
 			type = "description",
 			text = "Maelstrom Arena and Blackrose Prison share the same Defense and Healing sigil name, so if you have one of the following settings enabled the sigil will be disabled in BOTH arenas.",
 		},
