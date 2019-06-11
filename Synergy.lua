@@ -4,7 +4,7 @@ local EM = GetEventManager()
 local libDialog = LibStub('LibDialog')
 
 syn.name = "Synergy"
-syn.version = "1.17"
+syn.version = "1.18"
 
 local isMagDD
 
@@ -16,6 +16,7 @@ local defaults = {
 	["trialsOnly"] = true,
 	["frontBarOnly"] = false,
 	["lokkeMode"] = false,
+	["alkoshMode"] = false,
 	["disableGraveRobber"] = false,
 }
 
@@ -40,6 +41,8 @@ local LOKKE = {
 	[1] = "|H1:item:151137:363:50:0:0:0:0:0:0:0:0:0:0:0:1:86:0:1:0:10000:0|h|h",
 	[2] = "|H1:item:149934:363:50:0:0:0:0:0:0:0:0:0:0:0:1:86:0:1:0:10000:0|h|h",
 }
+
+local ALKOSH = "|H1:item:73058:364:50:0:0:0:0:0:0:0:0:0:0:0:257:45:0:1:0:0:0|h|h"
 
 local function GetFormattedAbilityName(id)
 	local name = syn.CustomAbilityName[id] or zo_strformat(SI_ABILITY_NAME, GetAbilityName(id))
@@ -72,7 +75,15 @@ local function lokkeCheck()
 	_,_,_,p = GetItemLinkSetInfo(LOKKE[1], true)
 	_,_,_,np = GetItemLinkSetInfo(LOKKE[2], true)
 	if (np >= 3) or (p >= 3) then return true end
-	if not syn.savedVariables.lokkeMode then return true end
+	if not (syn.savedVariables.lokkeMode or syn.savedVariables.alkoshMode) then return true end
+	return false
+end
+
+local function alkoshCheck()
+	local a = 0
+	_,_,_,a = GetItemLinkSetInfo(ALKOSH, true)
+	if a >= 3 then return true end
+	if not (syn.savedVariables.lokkeMode or syn.savedVariables.alkoshMode) then return true end
 	return false
 end
 
@@ -103,11 +114,17 @@ function syn.SynergyOverride()
 	local gate = GetString(SI_SYNERGY_ABILITY_GATEWAY)
 	
 	function SYNERGY:OnSynergyAbilityChanged()
-		local n, _ = GetSynergyInfo()
+		local n, texture = GetSynergyInfo()
 		local bar = GetActiveHotbarCategory()
 		local dd, h, t = GetGroupMemberRoles('player')
 		if n then n = zo_strformat("<<1>>", n) end
-		if n and syn.savedVariables.frontBarOnly and lokkeCheck() and not syn.excludeSyn[n] and bar ~= HOTBAR_CATEGORY_PRIMARY then SHARED_INFORMATION_AREA:SetHidden(self, true) return end
+		if n and syn.savedVariables.frontBarOnly and (lokkeCheck() or alkoshCheck()) and not syn.excludeSyn[n] and bar ~= HOTBAR_CATEGORY_PRIMARY then
+			SHARED_INFORMATION_AREA:SetHidden(self, true)
+			syn.alertFrame:SetHidden(false)
+			syn.alertIcon:SetTexture(texture)
+			syn.alertText:SetText(zo_strformat("<<1>> Available", n))
+			return
+		end
 		if n and syn.savedVariables.disableGraveRobber and n == gRobber then return end
 		if n and syn.savedVariables.brpSynDisable and syn.blackrose[n] then return end
 		if n and syn.savedVariables.maSynDisable and syn.maelstrom[n] then return end
@@ -130,6 +147,7 @@ function syn.SynergyOverride()
 			syn.allowOutbreak = false
 			syn.displayAlert = true
 		end
+		if not n or bar == HOTBAR_CATEGORY_PRIMARY then syn.alertFrame:SetHidden(true) end
 		onSynAbChng(self)
 	end
 
@@ -233,6 +251,7 @@ function syn.init(event, addon)
 	buildTables()
 	syn.buildMenu()
 	buildDialog()
+	syn.setupUI()
 	syn.SynergyOverride()
 	EM:RegisterForEvent(syn.name.."Combat", EVENT_PLAYER_COMBAT_STATE, syn.combat)
 	EM:RegisterForEvent(syn.name.."SwapRefresh", EVENT_ACTION_SLOTS_ACTIVE_HOTBAR_UPDATED, forceRefresh)

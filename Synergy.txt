@@ -1,7 +1,7 @@
 ## Title: |cd7f442S|rynergy
 ## Description: Prevents the use of certain synergies
 ## Author: Wheels
-## Version: 1.17
+## Version: 1.18
 ## APIVersion: 100027
 ## SavedVariables: SynergySavedVars
 ## DependsOn: LibAddonMenu-2.0 LibStub LibDialog
@@ -17,5 +17,6 @@ libs/LibCustomTitles/LibCustomTitles.lua
 libs/LibCustomTitles/Titles/Wheels.lua
 Synergy.lua
 SynergyMenu.lua
+SynergyUI.lua
 lang/en.lua
 lang/$(language).lua

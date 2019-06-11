@@ -64,6 +64,14 @@ function syn.buildMenu()
 		},
 		{
 			type = "checkbox",
+			name = "Alkosh Mode",
+			tooltip = "When the above setting (Only Synergize on Front Bar) is enabled, if you are wearing the Roar of Alkosh set, you will only be able to take synergies on your front bar, and if you are not wearing Alkosh, you can take synergies on both bars.",
+			default = false,
+			getFunc = function() return syn.savedVariables.alkoshMode end,
+			setFunc = function(value) syn.savedVariables.alkoshMode = value end,
+		},
+		{
+			type = "checkbox",
 			name = "Disable Grave Robber",
 			tooltip = "Enabling this will prevent you from being able to take the Grave Robber synergy from the Boneyard necro skill.",
 			default = false,
