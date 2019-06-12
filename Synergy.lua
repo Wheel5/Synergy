@@ -4,7 +4,7 @@ local EM = GetEventManager()
 local libDialog = LibStub('LibDialog')
 
 syn.name = "Synergy"
-syn.version = "1.18.1"
+syn.version = "1.18.2"
 
 local isMagDD
 
@@ -119,7 +119,11 @@ function syn.SynergyOverride()
 		local dd, h, t = GetGroupMemberRoles('player')
 		if n then n = zo_strformat("<<1>>", n) end
 		if n and syn.savedVariables.frontBarOnly and (lokkeCheck() or alkoshCheck()) and not syn.excludeSyn[n] and bar ~= HOTBAR_CATEGORY_PRIMARY then
-			if not syn.dpsSynergyBL[n] then
+			if dd and not syn.dpsSynergyBL[n] then
+				syn.alertFrame:SetHidden(false)
+				syn.alertIcon:SetTexture(texture)
+				syn.alertText:SetText(zo_strformat("<<1>> Available", n))
+			elseif t and not syn.tankSynergyBL[n] then
 				syn.alertFrame:SetHidden(false)
 				syn.alertIcon:SetTexture(texture)
 				syn.alertText:SetText(zo_strformat("<<1>> Available", n))
