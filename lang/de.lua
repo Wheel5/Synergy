@@ -4,7 +4,7 @@ ZO_CreateStringId("SI_SYNERGY_ABILITY_CONDUIT", "Ableiten")
 -- Sorc Storm Atronach Ulti (for all morphs)
 ZO_CreateStringId("SI_SYNERGY_ABILITY_CHARGED_LIGHTNING", "aufgeladener Blitz")
 -- Warden Healing Seed
-ZO_CreateStringId("SI_SYNERGY_ABILITY_HARVEST", "Einsammeln")
+ZO_CreateStringId("SI_SYNERGY_ABILITY_HARVEST", "Ernte")
 -- DK Dark Talons (for all Talon morphs)
 ZO_CreateStringId("SI_SYNERGY_ABILITY_IMPALE", "Entzünden")
 -- Templar Solar Prison Ulti

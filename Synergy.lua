@@ -19,6 +19,7 @@ local defaults = {
 	["alkoshMode"] = false,
 	["disableGraveRobber"] = false,
 	["showSynergyAlert"] = true,
+	["advancedLokkeMode"] = false,
 }
 
 syn.CustomAbilityName = {
@@ -90,21 +91,26 @@ local function alkoshCheck()
 	return true
 end
 
---local function lokkeCheckBar()
---	local npActive, pActive = 0
---	local pEquipped, npEquipped = 0
---	_,_,_,pActive,pEquipped= GetItemLinkSetInfo(LOKKE[1], true)
---	_,_,_,npActive,npEquipped= GetItemLinkSetInfo(LOKKE[2], true)
---	if (npActive == 5) or (pActive == 5) then return true end
---	return false
---end
---
---local function alkoshCheckBar()
---	local pActive,pEquipped  = 0
---	_,_,_,pActive, pEquipped= GetItemLinkSetInfo(ALKOSH, true)
---	if pActive == 5 then return true end
---	return false
---end
+local function lokkeCheckEquipped() -- redundant but I'm lazy
+	local npActive, pActive = 0
+	_,_,_,pActive = GetItemLinkSetInfo(LOKKE[1], true)
+	_,_,_,npActive = GetItemLinkSetInfo(LOKKE[2], true)
+	if (npActive >= 3) or (pActive >= 3) then return true end
+	return false
+end
+
+local function checkSlayerTime()
+	local t = 0
+	local numBuffs = GetNumBuffs("player")
+	for i = 1, numBuffs do
+		local buffName, timeStarted, timeEnding, buffSlot, stackCount, iconFilename, buffType, effectType, abilityType, statusEffectType, abilityId, canClickOff, castByPlayer = GetUnitBuffInfo("player", i)
+		if buffName == GetFormattedAbilityName(121871) then
+			t = timeEnding - GetGameTimeSeconds()
+			break
+		end
+	end
+	return t < 5
+end
 
 function syn.alkoshActive()
 	if DoesUnitExist("boss1") and not DoesUnitExist("boss2") and not syn.excludeBoss[GetUnitName("boss1")] then
@@ -122,6 +128,18 @@ function syn.alkoshActive()
 	end
 end
 
+local function checkLowStamina()
+	local current, max, eMax = GetUnitPower("player", POWERTYPE_STAMINA)
+	if current < (max/2) then return true end
+	return false
+end
+
+local function blockForSlayer()
+	if not lokkeCheckEquipped() then return false end
+	if checkLowStamina() then return false end
+	return not checkSlayerTime()
+end
+
 local function forceRefresh(e, didChange, shouldUpdate, category)
 	if didChange then SYNERGY:OnSynergyAbilityChanged() end
 end
@@ -131,6 +149,7 @@ function syn.SynergyOverride()
 	local onSynAbChng = SYNERGY.OnSynergyAbilityChanged
 	local gRobber = GetString(SI_SYNERGY_ABILITY_BONEYARD)
 	local gate = GetString(SI_SYNERGY_ABILITY_GATEWAY)
+	local atro = GetString(SI_SYNERGY_ABILITY_CHARGED_LIGHTNING)
 	
 	function SYNERGY:OnSynergyAbilityChanged()
 		local n, texture = GetSynergyInfo()
@@ -138,18 +157,15 @@ function syn.SynergyOverride()
 		local dd, h, t = GetGroupMemberRoles('player')
 		if n then n = zo_strformat("<<1>>", n) end
 		if n and syn.savedVariables.frontBarOnly and (lokkeCheck() or alkoshCheck()) and not syn.excludeSyn[n] then
-			if syn.savedVariables.showSynergyAlert and ((dd and not syn.dpsSynergyBL[n]) or (t and not syn.tankSynergyBL[n])) then
+			if syn.savedVariables.showSynergyAlert and not (syn.savedVariables.advancedLokkeMode and blockForSlayer()) and ((dd and not syn.dpsSynergyBL[n]) or (t and not syn.tankSynergyBL[n])) then
 				syn.alertFrame:SetHidden(false)
 				syn.alertIcon:SetTexture(texture)
 				syn.alertText:SetText(zo_strformat("<<1>> Available", n))
-		--	elseif syn.savedVariables.showSynergyAlert and t and not syn.tankSynergyBL[n] then
-		--		syn.alertFrame:SetHidden(false)
-		--		syn.alertIcon:SetTexture(texture)
-		--		syn.alertText:SetText(zo_strformat("<<1>> Available", n))
 			end
 			SHARED_INFORMATION_AREA:SetHidden(self, true)
 			return
 		end
+		if n and syn.savedVariables.advancedLokkeMode and blockForSlayer() and n ~= atro then return end
 		if n and syn.savedVariables.disableGraveRobber and n == gRobber then return end
 		if n and syn.savedVariables.brpSynDisable and syn.blackrose[n] then return end
 		if n and syn.savedVariables.maSynDisable and syn.maelstrom[n] then return end
