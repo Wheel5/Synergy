@@ -4,7 +4,7 @@ local EM = GetEventManager()
 local libDialog = LibDialog
 
 syn.name = "Synergy"
-syn.version = "1.18.2"
+syn.version = "1.19"
 
 local isMagDD
 

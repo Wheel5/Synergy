@@ -1,7 +1,7 @@
 ## Title: |cd7f442S|rynergy
 ## Description: Prevents the use of certain synergies
 ## Author: Wheels
-## Version: 1.18.2
+## Version: 1.19
 ## APIVersion: 100027
 ## SavedVariables: SynergySavedVars
 ## DependsOn: LibAddonMenu-2.0 LibDialog
