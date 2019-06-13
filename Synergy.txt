@@ -4,7 +4,7 @@
 ## Version: 1.18.2
 ## APIVersion: 100027
 ## SavedVariables: SynergySavedVars
-## DependsOn: LibAddonMenu-2.0 LibStub LibDialog
+## DependsOn: LibAddonMenu-2.0 LibDialog
 
 ; This Add-on is not created by, affiliated with or sponsored by ZeniMax
 ; Media Inc. or its affiliates. The Elder Scrolls® and related logos are

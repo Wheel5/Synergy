@@ -1,7 +1,7 @@
 synergy = synergy or {}
 local syn = synergy
 
-local LAM = LibStub("LibAddonMenu-2.0")
+local LAM = LibAddonMenu2
 
 function syn.buildMenu()
 	local panelData = {
@@ -48,28 +48,36 @@ function syn.buildMenu()
 		},
 		{
 			type = "checkbox",
-			name = "Only Synergize on Front Bar",
-			tooltip = "Disables the use of synergies when not on the front bar.",
+			name = "Only Synergize With Alkosh or Lokkestiiz Bonus",
+			tooltip = "When enabled, this setting will disable synergies when you don't have either the Lokkestiiz or Alkosh 5-piece bonus. This will work on either bar, and if it is active on both bars (body pieces or otherwise) you'll be able to take synergies on both bars.",
 			default = false,
 			getFunc = function() return syn.savedVariables.frontBarOnly end,
 			setFunc = function(value) syn.savedVariables.frontBarOnly = value end,
 		},
 		{
 			type = "checkbox",
-			name = "Lokkestiiz Mode",
-			tooltip = "When the above setting (Only Synergize on Front Bar) is enabled, if you are wearing the Lokkestiiz set, you will only be able to take synergies on your front bar, and if you are not wearing Lokkestiiz, you can take synergies on both bars.",
+			name = "Show Synergy Available Alert",
+			tooltip = "When enabled, if a synergy is blocked due to the above setting (not having the 5-piece bonus of Alkosh or Lokkestiiz while wearing one of the sets) an alert will instead be displayed, telling you that a synergy can be taken if you were to swap and activate the 5-piece bonus.",
 			default = false,
-			getFunc = function() return syn.savedVariables.lokkeMode end,
-			setFunc = function(value) syn.savedVariables.lokkeMode = value end,
+			getFunc = function() return syn.savedVariables.showSynergyAlert end,
+			setFunc = function(value) syn.savedVariables.showSynergyAlert = value end,
 		},
-		{
-			type = "checkbox",
-			name = "Alkosh Mode",
-			tooltip = "When the above setting (Only Synergize on Front Bar) is enabled, if you are wearing the Roar of Alkosh set, you will only be able to take synergies on your front bar, and if you are not wearing Alkosh, you can take synergies on both bars.",
-			default = false,
-			getFunc = function() return syn.savedVariables.alkoshMode end,
-			setFunc = function(value) syn.savedVariables.alkoshMode = value end,
-		},
+		--{
+		--	type = "checkbox",
+		--	name = "Lokkestiiz Mode",
+		--	tooltip = "When the above setting (Only Synergize With Active Set) is enabled, if you are wearing the Lokkestiiz set, you will only be able to take synergies with the 5-piece bonus active, and if you are not wearing Lokkestiiz, you can take synergies on both bars.",
+		--	default = false,
+		--	getFunc = function() return syn.savedVariables.lokkeMode end,
+		--	setFunc = function(value) syn.savedVariables.lokkeMode = value end,
+		--},
+		--{
+		--	type = "checkbox",
+		--	name = "Alkosh Mode",
+		--	tooltip = "When the above setting (Only Synergize With Active Set) is enabled, if you are wearing the Roar of Alkosh set, you will only be able to take synergies with the 5-piece bonus active, and if you are not wearing Alkosh, you can take synergies on both bars.",
+		--	default = false,
+		--	getFunc = function() return syn.savedVariables.alkoshMode end,
+		--	setFunc = function(value) syn.savedVariables.alkoshMode = value end,
+		--},
 		{
 			type = "checkbox",
 			name = "Disable Grave Robber",

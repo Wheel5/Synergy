@@ -1,7 +1,7 @@
 synergy = synergy or {}
 local syn = synergy
 local EM = GetEventManager()
-local libDialog = LibStub('LibDialog')
+local libDialog = LibDialog
 
 syn.name = "Synergy"
 syn.version = "1.18.2"
@@ -18,6 +18,7 @@ local defaults = {
 	["lokkeMode"] = false,
 	["alkoshMode"] = false,
 	["disableGraveRobber"] = false,
+	["showSynergyAlert"] = true,
 }
 
 syn.CustomAbilityName = {
@@ -74,18 +75,36 @@ local function lokkeCheck()
 	local np, p = 0
 	_,_,_,p = GetItemLinkSetInfo(LOKKE[1], true)
 	_,_,_,np = GetItemLinkSetInfo(LOKKE[2], true)
-	if (np >= 3) or (p >= 3) then return true end
-	if not (syn.savedVariables.lokkeMode or syn.savedVariables.alkoshMode) then return true end
-	return false
+	if (np < 3) and (p < 3) then return false end
+	if (np >= 3 and np < 5) or (p >= 3 and p < 5) then return true end
+	if (np == 5) or (p == 5) then return false end
+	return true
 end
 
 local function alkoshCheck()
 	local a = 0
 	_,_,_,a = GetItemLinkSetInfo(ALKOSH, true)
-	if a >= 3 then return true end
-	if not (syn.savedVariables.lokkeMode or syn.savedVariables.alkoshMode) then return true end
-	return false
+	if a < 3 then return false end
+	if (a >= 3) and (a < 5) then return true end
+	if (a == 5) then return false end
+	return true
 end
+
+--local function lokkeCheckBar()
+--	local npActive, pActive = 0
+--	local pEquipped, npEquipped = 0
+--	_,_,_,pActive,pEquipped= GetItemLinkSetInfo(LOKKE[1], true)
+--	_,_,_,npActive,npEquipped= GetItemLinkSetInfo(LOKKE[2], true)
+--	if (npActive == 5) or (pActive == 5) then return true end
+--	return false
+--end
+--
+--local function alkoshCheckBar()
+--	local pActive,pEquipped  = 0
+--	_,_,_,pActive, pEquipped= GetItemLinkSetInfo(ALKOSH, true)
+--	if pActive == 5 then return true end
+--	return false
+--end
 
 function syn.alkoshActive()
 	if DoesUnitExist("boss1") and not DoesUnitExist("boss2") and not syn.excludeBoss[GetUnitName("boss1")] then
@@ -118,15 +137,15 @@ function syn.SynergyOverride()
 		local bar = GetActiveHotbarCategory()
 		local dd, h, t = GetGroupMemberRoles('player')
 		if n then n = zo_strformat("<<1>>", n) end
-		if n and syn.savedVariables.frontBarOnly and (lokkeCheck() or alkoshCheck()) and not syn.excludeSyn[n] and bar ~= HOTBAR_CATEGORY_PRIMARY then
-			if dd and not syn.dpsSynergyBL[n] then
+		if n and syn.savedVariables.frontBarOnly and (lokkeCheck() or alkoshCheck()) and not syn.excludeSyn[n] then
+			if syn.savedVariables.showSynergyAlert and ((dd and not syn.dpsSynergyBL[n]) or (t and not syn.tankSynergyBL[n])) then
 				syn.alertFrame:SetHidden(false)
 				syn.alertIcon:SetTexture(texture)
 				syn.alertText:SetText(zo_strformat("<<1>> Available", n))
-			elseif t and not syn.tankSynergyBL[n] then
-				syn.alertFrame:SetHidden(false)
-				syn.alertIcon:SetTexture(texture)
-				syn.alertText:SetText(zo_strformat("<<1>> Available", n))
+		--	elseif syn.savedVariables.showSynergyAlert and t and not syn.tankSynergyBL[n] then
+		--		syn.alertFrame:SetHidden(false)
+		--		syn.alertIcon:SetTexture(texture)
+		--		syn.alertText:SetText(zo_strformat("<<1>> Available", n))
 			end
 			SHARED_INFORMATION_AREA:SetHidden(self, true)
 			return
