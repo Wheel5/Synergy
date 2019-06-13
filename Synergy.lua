@@ -4,7 +4,7 @@ local EM = GetEventManager()
 local libDialog = LibDialog
 
 syn.name = "Synergy"
-syn.version = "1.19"
+syn.version = "1.19.1"
 
 local isMagDD
 
@@ -149,7 +149,6 @@ function syn.SynergyOverride()
 	local onSynAbChng = SYNERGY.OnSynergyAbilityChanged
 	local gRobber = GetString(SI_SYNERGY_ABILITY_BONEYARD)
 	local gate = GetString(SI_SYNERGY_ABILITY_GATEWAY)
-	local atro = GetString(SI_SYNERGY_ABILITY_CHARGED_LIGHTNING)
 	
 	function SYNERGY:OnSynergyAbilityChanged()
 		local n, texture = GetSynergyInfo()
@@ -165,7 +164,7 @@ function syn.SynergyOverride()
 			SHARED_INFORMATION_AREA:SetHidden(self, true)
 			return
 		end
-		if n and syn.savedVariables.advancedLokkeMode and blockForSlayer() and n ~= atro then return end
+		if n and syn.savedVariables.advancedLokkeMode and blockForSlayer() and not syn.lokkeWL[n] then return end
 		if n and syn.savedVariables.disableGraveRobber and n == gRobber then return end
 		if n and syn.savedVariables.brpSynDisable and syn.blackrose[n] then return end
 		if n and syn.savedVariables.maSynDisable and syn.maelstrom[n] then return end
@@ -213,6 +212,12 @@ local function buildTables()
 	-- Synergy blacklist for mag DDs
 	syn.magDpsSynergyBL = {
 		[GetString(SI_SYNERGY_ABILITY_BLACK_WIDOWS)] = true,
+	}
+
+	-- Lokkestiiz Whitelist
+	syn.lokkeWL = {
+		[GetString(SI_SYNERGY_ABILITY_BLACK_WIDOWS)] = true,
+		[GetString(SI_SYNERGY_ABILITY_CHARGED_LIGHTNING)] = true,
 	}
 	
 	-- Synergy blacklist for tanks
