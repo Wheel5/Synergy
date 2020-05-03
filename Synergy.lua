@@ -4,7 +4,7 @@ local EM = GetEventManager()
 local libDialog = LibDialog
 
 syn.name = "Synergy"
-syn.version = "1.19.1"
+syn.version = "1.19.2"
 
 local isMagDD
 
@@ -155,7 +155,7 @@ function syn.SynergyOverride()
 		local bar = GetActiveHotbarCategory()
 		local dd, h, t = GetGroupMemberRoles('player')
 		if n then n = zo_strformat("<<1>>", n) end
-		if n and syn.savedVariables.frontBarOnly and (lokkeCheck() or alkoshCheck()) and not syn.excludeSyn[n] then
+		if n and syn.savedVariables.frontBarOnly and (lokkeCheck() or alkoshCheck()) and not syn.excludeSyn[n] and not syn.lokkeWL[n] then
 			if syn.savedVariables.showSynergyAlert and not (syn.savedVariables.advancedLokkeMode and blockForSlayer()) and ((dd and not syn.dpsSynergyBL[n]) or (t and not syn.tankSynergyBL[n])) then
 				syn.alertFrame:SetHidden(false)
 				syn.alertIcon:SetTexture(texture)
@@ -164,13 +164,13 @@ function syn.SynergyOverride()
 			SHARED_INFORMATION_AREA:SetHidden(self, true)
 			return
 		end
-		if n and syn.savedVariables.advancedLokkeMode and blockForSlayer() and not syn.lokkeWL[n] then return end
+		if n and syn.savedVariables.advancedLokkeMode and blockForSlayer() and not syn.lokkeWL[n] and not syn.excludeSyn[n] then return end
 		if n and syn.savedVariables.disableGraveRobber and n == gRobber then return end
 		if n and syn.savedVariables.brpSynDisable and syn.blackrose[n] then return end
 		if n and syn.savedVariables.maSynDisable and syn.maelstrom[n] then return end
 		if n and syn.savedVariables.portalDisable and n == gate then return end
 		if dd then
-			if n and isMagDD and syn.magDpsSynergyBL[n] then return end
+			--if n and isMagDD and syn.magDpsSynergyBL[n] then return end
 			if n and syn.dpsSynergyBL[n] then return end
 			if n and not syn.alkosh and not syn.excludeSyn[n] then return end
 		elseif h then
